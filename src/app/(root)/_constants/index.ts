@@ -320,19 +320,19 @@ puts "Sum of numbers: #{sum}"`,
 let numbers = [1, 2, 3, 4, 5]
 
 // Print original numbers
-print("Original numbers: \(numbers)")
+print("Original numbers: \\(numbers)")
 
 // Calculate squares
 let squares = numbers.map { $0 * $0 }
-print("Squared numbers: \(squares)")
+print("Squared numbers: \\(squares)")
 
 // Filter even numbers
 let evenNumbers = numbers.filter { $0 % 2 == 0 }
-print("Even numbers: \(evenNumbers)")
+print("Even numbers: \\(evenNumbers)")
 
 // Calculate sum
 let sum = numbers.reduce(0, +)
-print("Sum of numbers: \(sum)")`,
+print("Sum of numbers: \\(sum)")`,
   },
 };
 
