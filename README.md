@@ -1,42 +1,43 @@
-<h1 align="center">✨ SaaS Code Editor - Next.js 15 ✨</h1>
+# 🚀 CollabCode – Real-time Collaborative Code Editor  
 
-![Demo App](/public/screenshot-for-readme.png)
+[![CollabCode](https://img.shields.io/badge/Collab-Code-Building%20Together-blue)]()  
+[![License](https://img.shields.io/github/license/tirth1207/Collab-Code)]()  
+[![Contributors](https://img.shields.io/github/contributors/tirth1207/Collab-Code)]()  
+[![Issues](https://img.shields.io/github/issues/tirth1207/Collab-Code)]()  
+[![Stars](https://img.shields.io/github/stars/tirth1207/Collab-Code?style=social)]()  
 
-[Watch Full Tutorial on Youtube](https://youtu.be/fGkRQgf6Scw)
+CollabCode is a **real-time, collaborative code editor** designed to make remote coding seamless. Whether you're pair programming, conducting coding interviews, or working on group projects, CollabCode provides a powerful and intuitive workspace.  
 
-Highlights:
+## ✨ Features  
+✅ **Share Your Code to World** – Instantly share your code to world.  
+✅ **Multi-Language Support** – Write code in various programming languages.  
+✅ **Code Execution** – Run and test your code within the editor.  
+✅ **Version Control** – Track changes and revert if needed.  
+✅ **Minimal & Fast** – Clean UI with zero distractions.  
 
-- 🚀 Tech stack: Next.js 15 + Convex + Clerk + TypeScript
-- 💻 Online IDE with multi-language support (10 languages)
-- 🎨 Customizable experience with 5 VSCode themes
-- ✨ Smart output handling with Success & Error states
-- 💎 Flexible pricing with Free & Pro plans
-- 🤝 Community-driven code sharing system
-- 🔍 Advanced filtering & search capabilities
-- 👤 Personal profile with execution history tracking
-- 📊 Comprehensive statistics dashboard
-- ⚙️ Customizable font size controls
-- 🔗 Webhook integration support
-- 🌟 Professional deployment walkthrough
+## 🎯 Demo  
+🚀 **Live Demo:** [CollabCode Live](https://your-live-demo-link.com)  
 
-### Setup .env file
+🔧 **Project Showcase:** [Video Demo](https://your-demo-video-link.com)  
 
-```js
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-CONVEX_DEPLOYMENT=
-NEXT_PUBLIC_CONVEX_URL=
-```
+## 🛠️ Tech Stack  
+CollabCode is built using modern web technologies:  
+- **Frontend:** React.js, Next.js, Tailwind CSS  
+- **Backend:** Node.js, Express.js, WebSockets  
+- **Database:** MongoDB  
+- **Authentication:** Firebase / Auth0  
+- **Deployment:** Vercel / Heroku  
 
-### Add these env to Convex Dashboard
+## 🚀 Getting Started  
 
-```js
-CLERK_WEBHOOK_SECRET=
-LEMON_SQUEEZY_WEBHOOK_SECRET=
-```
+### 🔹 Prerequisites  
+Ensure you have the following installed:  
+- **Node.js** v16+  
+- **MongoDB** (if using locally)  
 
-### Run the app
+### 🔹 Installation  
 
-```shell
-npm run dev
-```
+Clone the repository:  
+```sh
+git clone https://github.com/your-username/CollabCode.git
+cd CollabCode
