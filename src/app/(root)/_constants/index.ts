@@ -211,6 +211,36 @@ func main() {
     println!("Sum of numbers: {}", sum);
 }`,
   },
+  c: {
+    id: "c",
+    label: "C",
+    logoPath: "/c.png",
+    pistonRuntime: { language: "c", version: "10.2.0" },
+    monacoLanguage: "c",
+    defaultCode: `#include <stdio.h>
+
+int main() {
+    // Create array
+    int numbers[] = {1, 2, 3, 4, 5};
+    int sum = 0;
+
+    // Print original numbers
+    printf("Original numbers: ");
+    for (int i = 0; i < 5; i++) {
+        printf("%d ", numbers[i]);
+    }
+    printf("\\n");
+
+    // Calculate sum
+    for (int i = 0; i < 5; i++) {
+        sum += numbers[i];
+    }
+    printf("Sum of numbers: %d\\n", sum);
+
+    return 0;
+}
+    `,
+  },
   cpp: {
     id: "cpp",
     label: "C++",
@@ -334,6 +364,7 @@ print("Even numbers: \\(evenNumbers)")
 let sum = numbers.reduce(0, +)
 print("Sum of numbers: \\(sum)")`,
   },
+  
 };
 
 export const THEMES: Theme[] = [

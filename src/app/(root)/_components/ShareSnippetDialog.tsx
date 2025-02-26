@@ -18,7 +18,9 @@ function ShareSnippetDialog({ onClose }: { onClose: () => void }) {
 
     try {
       const code = getCode();
-      await createSnippet({ title, language, code });
+      console.log("Attempting to share snippet...");
+      const response = await createSnippet({ title, language, code });
+      console.log("Snippet shared response:", response);
       onClose();
       setTitle("");
       toast.success("Snippet shared successfully");

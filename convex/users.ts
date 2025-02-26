@@ -18,7 +18,7 @@ export const syncUser = mutation({
         userId: args.userId,
         email: args.email,
         name: args.name,
-        isPro: false,
+        
       });
     }
   },
@@ -58,7 +58,7 @@ export const upgradeToPro = mutation({
     if (!user) throw new Error("User not found");
 
     await ctx.db.patch(user._id, {
-      isPro: true,
+      
       proSince: Date.now(),
       lemonSqueezyCustomerId: args.lemonSqueezyCustomerId,
       lemonSqueezyOrderId: args.lemonSqueezyOrderId,

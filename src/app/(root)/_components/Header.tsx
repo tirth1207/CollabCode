@@ -1,8 +1,9 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { ConvexHttpClient } from "convex/browser";
-import { api } from "../../../../convex/_generated/api";
+// import { currentUser } from "@clerk/nextjs/server";
+// import { ConvexHttpClient } from "convex/browser";
+// import { api } from "../../../../convex/_generated/api";
 import Link from "next/link";
-import { Blocks, Code2, Sparkles } from "lucide-react";
+import { Blocks, Code2,  } from "lucide-react";
+// import { Sparkles } from "lucide-react"
 import { SignedIn } from "@clerk/nextjs";
 import ThemeSelector from "./ThemeSelector";
 import LanguageSelector from "./LanguageSelector";
@@ -10,12 +11,12 @@ import RunButton from "./RunButton";
 import HeaderProfileBtn from "./HeaderProfileBtn";
 
 async function Header() {
-  const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
-  const user = await currentUser();
+  // const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+  // const user = await currentUser();
 
-  const convexUser = await convex.query(api.users.getUser, {
-    userId: user?.id || "",
-  });
+  // const convexUser = await convex.query(api.users.getUser, {
+  //   userId: user?.id || "",
+  // });
 
   return (
     <div className="relative z-10">
@@ -42,7 +43,7 @@ async function Header() {
 
             <div className="flex flex-col">
               <span className="block text-lg font-semibold bg-gradient-to-r from-blue-400 via-blue-300 to-purple-400 text-transparent bg-clip-text">
-                CodeCraft
+                CollabCode
               </span>
               <span className="block text-xs text-blue-400/60 font-medium">
                 Interactive Code Editor
@@ -75,10 +76,10 @@ async function Header() {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <ThemeSelector />
-            <LanguageSelector hasAccess={Boolean(convexUser?.isPro)} />
+            <LanguageSelector hasAccess={true} />
           </div>
 
-          {!convexUser?.isPro && (
+          {/* {!convexUser?.proSince && (
             <Link
               href="/pricing"
               className="flex items-center gap-2 px-4 py-1.5 rounded-lg border border-amber-500/20 hover:border-amber-500/40 bg-gradient-to-r from-amber-500/10 
@@ -90,7 +91,7 @@ async function Header() {
                 Pro
               </span>
             </Link>
-          )}
+          )} */}
 
           <SignedIn>
             <RunButton />

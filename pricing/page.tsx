@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { ConvexHttpClient } from "convex/browser";
-import { api } from "../../../convex/_generated/api";
+import { api } from "../convex/_generated/api";
 import ProPlanView from "./_components/ProPlanView";
 import NavigationHeader from "@/components/NavigationHeader";
 import { ENTERPRISE_FEATURES, FEATURES } from "./_constants";
@@ -18,7 +18,7 @@ async function PricingPage() {
     userId: user?.id || "",
   });
 
-  if (convexUser?.isPro) return <ProPlanView />;
+  if (convexUser?.proSince) return <ProPlanView />;
 
   return (
     <div
@@ -98,7 +98,7 @@ async function PricingPage() {
                     </span>
                     <span className="text-xl text-gray-400">one-time</span>
                   </div>
-                  <p className="text-gray-400 text-lg">Unlock the full potential of CodeCraft</p>
+                  <p className="text-gray-400 text-lg">Unlock the full potential of CollabCode</p>
                 </div>
 
                 {/* Features grid */}

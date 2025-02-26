@@ -25,7 +25,7 @@ interface ProfileHeaderProps {
     name: string;
     userId: string;
     email: string;
-    isPro: boolean;
+    
   };
   user: UserResource;
 }
@@ -91,7 +91,7 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
             alt="Profile"
             className="w-24 h-24 rounded-full border-4 border-gray-800/50 relative z-10 group-hover:scale-105 transition-transform"
           />
-          {userData.isPro && (
+          {userData && (
             <div
               className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-500 to-purple-600 p-2
              rounded-full z-20 shadow-lg animate-pulse"
@@ -103,7 +103,7 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
         <div>
           <div className="flex items-center gap-3 mb-2">
             <h1 className="text-3xl font-bold text-white">{userData.name}</h1>
-            {userData.isPro && (
+            {userData && (
               <span className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm font-medium">
                 Pro Member
               </span>
