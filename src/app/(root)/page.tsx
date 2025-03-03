@@ -5,14 +5,14 @@ import OutputPanel from "./_components/OutputPanel";
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <div className="max-w-[1800px] mx-auto p-4">
-        <Header />
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
+    <Header />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <EditorPanel />
-          <OutputPanel />
-        </div>
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <EditorPanel />
+      <OutputPanel />
     </div>
+  </div>
+</div>
   );
 }
