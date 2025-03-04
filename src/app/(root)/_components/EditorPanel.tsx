@@ -43,7 +43,7 @@ function EditorPanel() {
   };
 
   const handleFontSizeChange = (newSize: number) => {
-    const size = Math.min(Math.max(newSize, 12), 24);
+    const size = Math.min(Math.max(newSize, 8), 24);
     setFontSize(size);
     localStorage.setItem("editor-font-size", size.toString());
   };
