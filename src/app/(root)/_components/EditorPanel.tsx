@@ -86,7 +86,7 @@ function EditorPanel() {
               <div className="flex items-center gap-2 w-full">
                 <input
                   type="range"
-                  min="12"
+                  min="8"
                   max="24"
                   value={fontSize}
                   onChange={(e) => handleFontSizeChange(parseInt(e.target.value))}
