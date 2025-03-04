@@ -1,47 +1,49 @@
 "use client";
-
+import NavigationHeader from "@/components/NavigationHeader";
+import { AnimatePresence, motion } from "framer-motion";
+import { Code, Search, Tag, Layers, X, Grid, BookOpen, ShareIcon } from "lucide-react";
+import SnippetsPageSkeleton from "../snippets/_components/SnippetsPageSkeleton";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useState } from "react";
-import SnippetsPageSkeleton from "./_components/SnippetsPageSkeleton";
-import NavigationHeader from "@/components/NavigationHeader";
-
-import { AnimatePresence, motion } from "framer-motion";
-import { BookOpen, Code, Grid, Layers, Search, Tag, X } from "lucide-react";
 import SnippetCard from "./_components/SnippetCard";
+import ShareSnippetDialog from "./_components/SharePostDialog";
 
-function SnippetsPage() {
-  const snippets = useQuery(api.snippets.getSnippets);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
-  const [view, setView] = useState<"grid" | "list">("grid");
+function CommunityPage() {
+    const communitys = useQuery(api.posts.getPosts);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+    const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+    const [view, setView] = useState<"grid" | "list">("grid");
 
-  // loading state
-  if (snippets === undefined) {
+    if (communitys === undefined) {
+        return (
+          <div className="min-h-screen">
+            <NavigationHeader />
+            <SnippetsPageSkeleton />
+          </div>
+        );
+      }
+
+    const languages = [...new Set(communitys.map((s) => s.language))];
+    const popularLanguages = languages.slice(0, 5);
+
+
+    const filteredSnippets = communitys.filter((community) => {
+        const matchesSearch =
+          community.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          community.language.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          community.userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          community.decription.toLowerCase().includes(searchQuery.toLowerCase());
+    
+        const matchesLanguage = !selectedLanguage || community.language === selectedLanguage;
+    
+        return matchesSearch && matchesLanguage;
+    })
+
+    
     return (
-      <div className="min-h-screen">
-        <NavigationHeader />
-        <SnippetsPageSkeleton />
-      </div>
-    );
-  }
-
-  const languages = [...new Set(snippets.map((s) => s.language))];
-  const popularLanguages = languages.slice(0, 5);
-
-  const filteredSnippets = snippets.filter((snippet) => {
-    const matchesSearch =
-      snippet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      snippet.language.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      snippet.userName.toLowerCase().includes(searchQuery.toLowerCase());
-
-    const matchesLanguage = !selectedLanguage || snippet.language === selectedLanguage;
-
-    return matchesSearch && matchesLanguage;
-  });
-
-  return (
-    <div className="min-h-screen bg-[#0a0a0f]">
+            <div className="min-h-screen bg-[#0a0a0f]">
       <NavigationHeader />
 
       <div className="relative max-w-7xl mx-auto px-4 py-12">
@@ -79,7 +81,7 @@ function SnippetsPage() {
           {/* Search */}
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
-            <div className="relative flex items-center">
+            <div className="relative flex items-center gap-2">
               <Search className="absolute left-4 w-5 h-5 text-gray-400" />
               <input
                 type="text"
@@ -90,6 +92,16 @@ function SnippetsPage() {
                   rounded-xl border border-[#313244] hover:border-[#414155] transition-all duration-200
                   placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               />
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setIsShareDialogOpen(true)}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg overflow-hidden bg-gradient-to-r
+                from-blue-500 to-blue-600 opacity-90 hover:opacity-100 transition-opacity"
+                >
+                <ShareIcon className="size-4 text-white" />
+                <span className="text-sm font-medium text-white ">Share</span>
+                </motion.button>
             </div>
           </div>
 
@@ -172,8 +184,8 @@ function SnippetsPage() {
           layout
         >
           <AnimatePresence mode="popLayout">
-            {filteredSnippets.map((snippet) => (
-              <SnippetCard key={snippet._id} snippet={snippet} />
+            {filteredSnippets.map((post) => (
+              <SnippetCard key={post._id} posts={post} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -192,11 +204,11 @@ function SnippetsPage() {
               >
                 <Code className="w-8 h-8 text-gray-400" />
               </div>
-              <h3 className="text-xl font-medium text-white mb-3">No snippets found</h3>
+              <h3 className="text-xl font-medium text-white mb-3">No Community Post found</h3>
               <p className="text-gray-400 mb-6">
                 {searchQuery || selectedLanguage
                   ? "Try adjusting your search query or filters"
-                  : "Be the first to share a code snippet with the community"}
+                  : "Be the first to share a post with the community"}
               </p>
 
               {(searchQuery || selectedLanguage) && (
@@ -216,7 +228,9 @@ function SnippetsPage() {
           </motion.div>
         )}
       </div>
+      {isShareDialogOpen && <ShareSnippetDialog onClose={() => setIsShareDialogOpen(false)} />}
     </div>
-  );
+    );
 }
-export default SnippetsPage;
+
+export default CommunityPage

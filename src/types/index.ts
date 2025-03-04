@@ -64,3 +64,14 @@ export interface Snippet {
   title: string;
   userName: string;
 }
+
+export interface Posts {
+  _id: Id<"posts">;
+  _creationTime: number;
+  userId: string;
+  language: string;
+  decription: string;
+  code: string;
+  title: string;
+  userName: string;
+}
