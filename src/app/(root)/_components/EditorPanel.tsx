@@ -187,7 +187,7 @@ function EditorPanel() {
                 fontSize,
                 automaticLayout: true,
                 scrollBeyondLastLine: true,
-                padding: { top: 16, bottom: 16 },
+                padding: { top: 20, bottom: 20 },
                 renderWhitespace: "selection",
                 fontFamily: '"Fira Code", "Cascadia Code", Consolas, monospace',
                 fontLigatures: true,
@@ -195,7 +195,7 @@ function EditorPanel() {
                 smoothScrolling: true,
                 contextmenu: true,
                 renderLineHighlight: "all",
-                lineHeight: 1.6,
+                lineHeight: 1.8,
                 letterSpacing: 0.5,
                 roundedSelection: true,
                 scrollbar: {
@@ -208,31 +208,20 @@ function EditorPanel() {
                 lineNumbers: "off",
                 folding: false,
                 glyphMargin: false,
-                // Mobile-friendly options
                 selectionHighlight: true,
                 occurrencesHighlight: true,
                 dragAndDrop: true,
                 formatOnPaste: true,
                 multiCursorModifier: 'alt',
                 wordWrap: 'on',
-                // Enable mobile context menu
-                contextmenu: true,
-                // Better touch handling
                 mouseWheelZoom: true,
-                // Increase the line height slightly for better touch targets
-                lineHeight: 1.8,
-                // Add some extra padding for touch targets
-                padding: { top: 20, bottom: 20 },
-                // Enable suggestions
                 suggestOnTriggerCharacters: true,
                 parameterHints: {
                   enabled: true,
                   cycle: true
                 },
-                // Better selection handling
                 selectOnLineNumbers: true,
                 wordSeparators: '`~!@#$%^&*()-=+[{]}\\|;:\'",.<>/?',
-                // Mobile-friendly find widget
                 find: {
                   addExtraSpaceOnTop: true,
                   autoFindInSelection: 'always',
