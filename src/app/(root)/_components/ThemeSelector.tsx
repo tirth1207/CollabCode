@@ -66,14 +66,14 @@ function ThemeSelector() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 w-screen bg-[#1e1e2e]/95 backdrop-blur-xl 
+            className="absolute top-full left-0 min-w-max bg-[#1e1e2e]/95 backdrop-blur-xl 
             rounded-xl border border-[#313244] shadow-2xl py-2 z-50"
           >
             <div className="px-4 pb-2 mb-2 border-b border-gray-800/50">
               <p className="text-xs font-medium text-gray-400">Select Theme</p>
             </div>
 
-            <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700">
+            <div className="min-h-max overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700">
               {THEMES.map((t, index) => (
                 <motion.button
                   key={t.id}

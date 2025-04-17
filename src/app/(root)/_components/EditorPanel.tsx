@@ -5,7 +5,7 @@ import { defineMonacoThemes, LANGUAGE_CONFIG } from "../_constants";
 import { Editor } from "@monaco-editor/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { RotateCcwIcon, ShareIcon, TypeIcon, MenuIcon } from "lucide-react";
+import { RotateCcwIcon, ShareIcon, TypeIcon, MenuIcon, CopyIcon } from "lucide-react";
 import { useClerk } from "@clerk/nextjs";
 import { EditorPanelSkeleton } from "./EditorPanelSkeleton";
 import useMounted from "@/hooks/useMounted";
@@ -37,15 +37,26 @@ function EditorPanel() {
     if (editor) editor.setValue(defaultCode);
     localStorage.removeItem(`editor-code-${language}`);
   };
+  
 
   const handleEditorChange = (value: string | undefined) => {
     if (value) localStorage.setItem(`editor-code-${language}`, value);
   };
 
   const handleFontSizeChange = (newSize: number) => {
-    const size = Math.min(Math.max(newSize, 12), 24);
+    const size = Math.min(Math.max(newSize, 8), 24);
     setFontSize(size);
     localStorage.setItem("editor-font-size", size.toString());
+  };
+
+  const handleCopyCode = () => {
+    if (editor) {
+      const code = editor.getValue();
+      navigator.clipboard.writeText(code)
+        .catch(err => {
+          console.error('Failed to copy code:', err);
+        });
+    }
   };
 
   if (!mounted) return null;
@@ -86,7 +97,7 @@ function EditorPanel() {
               <div className="flex items-center gap-2 w-full">
                 <input
                   type="range"
-                  min="12"
+                  min="8"
                   max="24"
                   value={fontSize}
                   onChange={(e) => handleFontSizeChange(parseInt(e.target.value))}
@@ -97,6 +108,16 @@ function EditorPanel() {
                 </span>
               </div>
             </div>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleCopyCode}
+              className="p-2 bg-[#1e1e2e] hover:bg-[#2a2a3a] rounded-lg ring-1 ring-white/5 transition-colors w-full sm:w-auto flex justify-center"
+              aria-label="Copy code"
+            >
+              <CopyIcon className="size-4 text-gray-400" />
+            </motion.button>
 
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -138,18 +159,34 @@ function EditorPanel() {
         <div className="relative group rounded-xl overflow-hidden ring-1 ring-white/[0.05]">
           {clerk.loaded && (
             <Editor
-              height="350px"
-              className="min-h-[350px] md:min-h-[450px] lg:min-h-[600px]"
+              height="60vh"
+              className="min-h-[350px] md:min-h-[450px] lg:min-h-[600px] overflow-y-auto touch-manipulation"
               language={LANGUAGE_CONFIG[language].monacoLanguage}
               onChange={handleEditorChange}
               theme={theme}
               beforeMount={defineMonacoThemes}
-              onMount={(editor) => setEditor(editor)}
+              onMount={(editor) => {
+                setEditor(editor);
+                // Enable touch events and better mobile handling
+                editor.updateOptions({
+                  mouseWheelZoom: true,
+                  touchScroll: true,
+                  wordBasedSuggestions: true,
+                  quickSuggestions: {
+                    other: true,
+                    comments: true,
+                    strings: true
+                  },
+                  acceptSuggestionOnEnter: "on",
+                  hideCursorInOverviewRuler: true,
+                  overviewRulerBorder: false,
+                });
+              }}
               options={{
                 minimap: { enabled: false },
                 fontSize,
                 automaticLayout: true,
-                scrollBeyondLastLine: false,
+                scrollBeyondLastLine: true,
                 padding: { top: 16, bottom: 16 },
                 renderWhitespace: "selection",
                 fontFamily: '"Fira Code", "Cascadia Code", Consolas, monospace',
@@ -162,12 +199,45 @@ function EditorPanel() {
                 letterSpacing: 0.5,
                 roundedSelection: true,
                 scrollbar: {
-                  verticalScrollbarSize: 8,
-                  horizontalScrollbarSize: 8,
+                  verticalScrollbarSize: 12,
+                  horizontalScrollbarSize: 12,
+                  vertical: 'visible',
+                  horizontal: 'visible',
+                  useShadows: true,
                 },
-                lineNumbers: "off",  // This hides the line numbers
-                folding: false,      // Optional: disables code folding
-                glyphMargin: false,  // Optional: hides the glyph margin
+                lineNumbers: "off",
+                folding: false,
+                glyphMargin: false,
+                // Mobile-friendly options
+                selectionHighlight: true,
+                occurrencesHighlight: true,
+                dragAndDrop: true,
+                formatOnPaste: true,
+                multiCursorModifier: 'alt',
+                wordWrap: 'on',
+                // Enable mobile context menu
+                contextmenu: true,
+                // Better touch handling
+                mouseWheelZoom: true,
+                // Increase the line height slightly for better touch targets
+                lineHeight: 1.8,
+                // Add some extra padding for touch targets
+                padding: { top: 20, bottom: 20 },
+                // Enable suggestions
+                suggestOnTriggerCharacters: true,
+                parameterHints: {
+                  enabled: true,
+                  cycle: true
+                },
+                // Better selection handling
+                selectOnLineNumbers: true,
+                wordSeparators: '`~!@#$%^&*()-=+[{]}\\|;:\'",.<>/?',
+                // Mobile-friendly find widget
+                find: {
+                  addExtraSpaceOnTop: true,
+                  autoFindInSelection: 'always',
+                  seedSearchStringFromSelection: 'always'
+                }
               }}
             />
           )}

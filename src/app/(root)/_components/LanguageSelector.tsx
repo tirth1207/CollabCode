@@ -2,18 +2,19 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {  Check, Globe } from "lucide-react";
+import {  Check } from "lucide-react";
 import { useCodeEditorStore } from "@/store/useCodeEditorStore";
 
 const LANGUAGES = [
-  { id: "javascript", label: "JavaScript", icon: "🟨" },
-  { id: "python", label: "Python", icon: "🐍" },
-  { id: "java", label: "Java", icon: "☕" },
-  { id: "cpp", label: "C++", icon: "🔵" },
-  { id: "csharp", label: "C#", icon: "♯" },
-  { id: "typescript", label: "TypeScript", icon: "🔷" },
-  { id: "go", label: "Go", icon: "🐹" },
-  { id: "rust", label: "Rust", icon: "🦀" },
+  { id: "javascript", label: "JavaScript", icon: "/javascript.png" },
+  { id: "python", label: "Python", icon: "/python.png" },
+  { id: "java", label: "Java", icon: "/java.png" },
+  { id: "c", label: "C", icon: "/c.png" },
+  { id: "cpp", label: "C", icon: "/cpp.png" },
+  { id: "csharp", label: "C#", icon: "/csharp.png" },
+  { id: "typescript", label: "TypeScript", icon: "/typescript.png" },
+  { id: "go", label: "Go", icon: "/go.png" },
+  { id: "rust", label: "Rust", icon: "/rust.png" },
 ];
 
 function LanguageSelector() {
@@ -52,7 +53,7 @@ function LanguageSelector() {
         className="w-full flex items-center gap-2 px-4 py-2.5 bg-[#1e1e2e]/80 hover:bg-[#262637] 
         rounded-lg transition-all duration-200 border border-gray-800/50 hover:border-gray-700"
       >
-        <Globe className="w-4 h-4 text-gray-400" />
+        <img src={currentLanguage?.icon} alt={currentLanguage?.label} className="w-4 h-4" />
         <span className="text-gray-300 min-w-[80px] text-left">{currentLanguage?.label}</span>
       </motion.button>
 
@@ -63,14 +64,14 @@ function LanguageSelector() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 w-screen bg-[#1e1e2e]/95 backdrop-blur-xl 
+            className="absolute top-full left-0 min-w-max bg-[#1e1e2e]/95 backdrop-blur-xl 
             rounded-xl border border-[#313244] shadow-2xl py-2 z-50"
           >
             <div className="px-4 pb-2 mb-2 border-b border-gray-800/50">
               <p className="text-xs font-medium text-gray-400">Select Language</p>
             </div>
 
-            <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700">
+            <div className="min-h-max overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700">
               {LANGUAGES.map((lang, index) => (
                 <motion.button
                   key={lang.id}
@@ -84,7 +85,7 @@ function LanguageSelector() {
                     setIsOpen(false);
                   }}
                 >
-                  <span className="text-lg">{lang.icon}</span>
+                  <img src={lang.icon} alt={lang.label} className="w-6 h-6" />
                   <span className="flex-1 text-left">{lang.label}</span>
                   {language === lang.id && <Check className="w-4 h-4 text-blue-400" />}
                 </motion.button>

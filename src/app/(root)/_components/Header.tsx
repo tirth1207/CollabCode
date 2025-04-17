@@ -1,4 +1,5 @@
 "use client";
+
 // import { currentUser } from "@clerk/nextjs/server";
 // import { ConvexHttpClient } from "convex/browser";
 // import { api } from "../../../../convex/_generated/api";
@@ -174,7 +175,7 @@ function Header() {
               </div>
               <div className="p-3 bg-gray-800/50 rounded-lg border border-gray-800">
                 <h4 className="text-xs text-gray-400 mb-2">Language</h4>
-                <LanguageSelector/>
+                <LanguageSelector />
               </div>
             </div>
           </div>
